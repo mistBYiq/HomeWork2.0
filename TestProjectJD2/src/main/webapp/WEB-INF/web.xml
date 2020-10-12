@@ -10,6 +10,10 @@
         <welcome-file>index.htm</welcome-file>
     </welcome-file-list>
 
+    <listener>
+        <listener-class>org.example.listener.CustomContextListener</listener-class>
+    </listener>
+
     <servlet>
         <servlet-name>HelloPage</servlet-name>
         <jsp-file>/WEB-INF/jsp/hello.jsp</jsp-file>
