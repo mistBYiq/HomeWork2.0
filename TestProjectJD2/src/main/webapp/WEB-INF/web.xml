@@ -1,0 +1,31 @@
+<web-app xmlns="http://java.sun.com/xml/ns/j2ee"
+         id="WebApp_ID" version="2.4"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee
+   http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
+
+    <welcome-file-list>
+        <welcome-file>index.jsp</welcome-file>
+        <welcome-file>index.html</welcome-file>
+        <welcome-file>index.htm</welcome-file>
+    </welcome-file-list>
+
+    <servlet>
+        <servlet-name>HelloPage</servlet-name>
+        <jsp-file>/WEB-INF/jsp/hello.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>HelloPage</servlet-name>
+        <url-pattern>/hello</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>ByePage</servlet-name>
+        <jsp-file>/WEB-INF/jsp/bye.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ByePage</servlet-name>
+        <url-pattern>/bye</url-pattern>
+    </servlet-mapping>
+
+</web-app>
