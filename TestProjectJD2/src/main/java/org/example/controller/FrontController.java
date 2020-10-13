@@ -1,7 +1,10 @@
 package org.example.controller;
 
+import org.example.domain.Car;
 import org.example.domain.User;
+import org.example.repository.CarRepository;
 import org.example.repository.UserRepository;
+import org.example.repository.impl.CarRepositoryImpl;
 import org.example.repository.impl.UserRepositoryImpl;
 
 import javax.servlet.RequestDispatcher;
@@ -15,6 +18,7 @@ import java.util.stream.Collectors;
 public class FrontController extends HttpServlet {
 
     public static final UserRepository userRepository = new UserRepositoryImpl();
+    public static final CarRepository carRepository = new CarRepositoryImpl();
 
     public FrontController() {
         super();
@@ -35,7 +39,8 @@ public class FrontController extends HttpServlet {
         if (dispatcher != null) {
             System.out.println("Forward will be done!");
 
-            req.setAttribute("users", userRepository.findAll().stream().map(User::getName).collect(Collectors.joining(",")));
+           // req.setAttribute("users", userRepository.findAll().stream().map(User::getName).collect(Collectors.joining(",")));
+            req.setAttribute("carModel", carRepository.findAll().stream().map(Car::getModel).collect(Collectors.joining(",")));
 
             dispatcher.forward(req, resp);
         }
