@@ -1,0 +1,81 @@
+1) Вывести все уникальные имена ролей пользователей.
+
+select distinct role_name from m_roles;
+
+2) Подсчитать число машин у каждого пользователя.
+Вывести в формате User full name (username + пробел + user surname) | Число машин у пользователя.
+
+select (m_users.name || ' ' || m_users.surname) as "Full name",
+       (select count(*) from m_cars where m_users.id = m_cars.user_id ) as "Count Car"
+from m_users
+order by m_users.id;
+
+3) Подсчитать для каждого диллера число машин, старше 2018 года производства с красным кузовом.
+
+select m_auto_dealer.name,
+       (select count(*)
+       from m_cars join m_body on m_cars.id = m_body.car_id
+        where m_auto_dealer.id = m_cars.dealer_id
+          and m_body.created < '2018-01-01 00:00:00.000000'
+          and m_body.color = 'Red')
+from m_auto_dealer
+order by m_auto_dealer.id;
+
+4) Найти пользователей не из Беларуси и России, у которых есть машина 2010-2015 года
+выпуска из Германии и купленную в диллере не в Германии с объемом двигателя больше 3 литра.
+
+select distinct m_users
+from m_users
+join m_cars on m_users.id = m_cars.user_id
+join m_body on m_cars.id = m_body.car_id
+join m_auto_dealer on m_cars.dealer_id = m_auto_dealer.id
+join m_engine on m_cars.id = m_engine.car_id
+where m_users.country not in ('Belarus','Russia')
+  and m_body.created between '2010-01-01 00:00:00.000000' and '2015-12-31 23:59:59.000000'
+  and m_cars.country = 'Germany'
+  and m_auto_dealer.country <> 'Germany'
+  and m_engine.volume > 3000
+order by m_users;
+
+
+
+
+select distinct m_users
+from m_users, m_cars, m_body, m_auto_dealer, m_engine
+where m_users.country not in ('Belarus','Russia')
+and m_users.id = m_cars.user_id
+and m_cars.id = m_body.car_id
+and m_body.created between '2010-01-01 00:00:00.000000' and '2015-12-31 23:59:59.000000'
+and m_cars.country = 'Germany'
+and m_cars.dealer_id = m_auto_dealer.id
+and m_auto_dealer.country <> 'Germany'
+and m_cars.id = m_engine.car_id
+and m_engine.volume > 3000
+order by m_users;
+
+5) Определить логины пользователей, имеющих больше 3 машин.
+
+select m_users.login
+from m_users
+where (select count(*)
+       from m_cars
+       where m_users.id = m_cars.user_id ) > 3
+order by m_users.id;
+
+6) Вывести уникальных диллеров с подсчитанной суммой стоимостей машин, связанных с ними.
+
+select distinct m_auto_dealer.name,
+                (select sum(price)
+                 from m_cars
+                 where m_auto_dealer.id = m_cars.dealer_id) as "Total Price"
+from m_auto_dealer
+order by m_auto_dealer.name;
+
+7) Подсчитать количество уникальных пользователей, владеющих хотя бы одной машиной,
+стоимость которой превышает среднюю стоимость всех машин.
+
+select count(distinct m_users)
+from m_users
+join m_cars on m_users.id = m_cars.user_id
+where (select count(*) from m_cars where m_users.id = m_cars.user_id ) >= 1
+and m_cars.price > (select avg(m_cars.price) from m_cars);
