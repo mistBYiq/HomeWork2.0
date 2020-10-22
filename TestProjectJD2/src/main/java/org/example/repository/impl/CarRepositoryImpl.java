@@ -14,8 +14,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import static org.example.util.DatabasePropertiesReader.*;
+
+import static org.example.util.DatabasePropertiesReader.DATABASE_DRIVER_NAME;
+import static org.example.util.DatabasePropertiesReader.DATABASE_LOGIN;
 import static org.example.util.DatabasePropertiesReader.DATABASE_PASSWORD;
+import static org.example.util.DatabasePropertiesReader.DATABASE_URL;
 
 public class CarRepositoryImpl implements CarRepository {
 

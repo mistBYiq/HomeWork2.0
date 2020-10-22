@@ -1,10 +1,9 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Bye Page</title>
+    <title>Error page</title>
 </head>
 <body>
-
-<h1>Bye-Bye!</h1>
+${trace}
 </body>
 </html>
