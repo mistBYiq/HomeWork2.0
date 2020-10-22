@@ -4,7 +4,6 @@ import com.google.gson.Gson;
 import org.apache.commons.io.IOUtils;
 import org.example.controller.commands.Commands;
 import org.example.domain.Car;
-import org.example.domain.User;
 import org.example.repository.CarRepository;
 import org.example.repository.UserRepository;
 import org.example.repository.impl.CarRepositoryImpl;
@@ -21,7 +20,6 @@ import java.util.Collections;
 
 public class FrontController extends HttpServlet {
 
-    public static final UserRepository userRepository = new UserRepositoryImpl();
     public static final CarRepository carRepository = new CarRepositoryImpl();
 
     public FrontController() {
@@ -34,7 +32,7 @@ public class FrontController extends HttpServlet {
     }
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) {
         processPostRequest(req, resp);
     }
 

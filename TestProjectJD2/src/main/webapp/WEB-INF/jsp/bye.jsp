@@ -4,7 +4,6 @@
     <title>Bye Page</title>
 </head>
 <body>
-
 <h1>Bye-Bye!</h1>
 </body>
 </html>
